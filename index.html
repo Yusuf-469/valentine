@@ -12,70 +12,147 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Georgia', 'Times New Roman', serif;
             min-height: 100vh;
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #ffecd2 100%);
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 40px 20px;
+            padding: 20px;
             overflow-x: hidden;
         }
 
-        h1 {
-            color: #e91e63;
-            margin-bottom: 40px;
-            font-size: 2.5rem;
-            text-align: center;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        .cards-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 40px;
-            max-width: 600px;
+        /* Floating hearts background */
+        .bg-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
         }
 
-        /* First Card: I Love You */
-        .card-love {
+        .bg-hearts span {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.1);
+            font-size: 2rem;
+            animation: floatBg 15s linear infinite;
+        }
+
+        @keyframes floatBg {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* Main title */
+        .main-title {
+            color: #fff;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-align: center;
+            z-index: 10;
+            text-shadow: 0 0 20px rgba(255, 105, 180, 0.5);
+            animation: titleGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% { text-shadow: 0 0 20px rgba(255, 105, 180, 0.5); }
+            50% { text-shadow: 0 0 40px rgba(255, 105, 180, 0.8), 0 0 60px rgba(255, 105, 180, 0.4); }
+        }
+
+        /* Card Carousel Container */
+        .carousel-container {
             position: relative;
             width: 100%;
             max-width: 500px;
-            height: 300px;
+            height: 600px;
+            perspective: 1500px;
+            z-index: 10;
+        }
+
+        /* Navigation Buttons */
+        .nav-buttons {
+            display: flex;
+            gap: 20px;
+            margin-top: 30px;
+            z-index: 10;
+        }
+
+        .nav-btn {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #e91e63, #ff6b6b);
+            color: white;
+            border: none;
             border-radius: 30px;
-            overflow: hidden;
             cursor: pointer;
-            box-shadow: 0 20px 60px rgba(233, 30, 99, 0.3);
-            animation: float 3s ease-in-out infinite;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(233, 30, 99, 0.4);
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
+        .nav-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(233, 30, 99, 0.6);
         }
 
-        .card-love .heart-bg {
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Playing Card Styles */
+        .playing-card {
             position: absolute;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 50%, #ff9ff3 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .card-love .heart-bg::before {
-            content: '❤️';
+        .playing-card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .playing-card.opposite {
+            transform: rotateY(180deg) scale(0.9);
+            opacity: 0.5;
+            z-index: 0;
+        }
+
+        .playing-card.active {
+            transform: rotateY(0deg) scale(1);
+            opacity: 1;
+            z-index: 10;
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        .card-front {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .card-front::before {
+            content: '💕';
             font-size: 8rem;
             animation: heartbeat 1s ease-in-out infinite;
         }
@@ -85,749 +162,691 @@
             50% { transform: scale(1.1); }
         }
 
-        .card-love .overlay {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(transparent 40%, rgba(233, 30, 99, 0.9) 100%);
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            padding-bottom: 30px;
-        }
-
-        .card-love .text {
+        .card-label {
             color: #fff;
-            font-size: 2.5rem;
-            font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            animation: glow 2s ease-in-out infinite alternate;
-        }
-
-        @keyframes glow {
-            from { text-shadow: 2px 2px 4px rgba(0,0,0,0.3), 0 0 10px rgba(255,255,255,0.5); }
-            to { text-shadow: 2px 2px 4px rgba(0,0,0,0.3), 0 0 20px rgba(255,255,255,0.8), 0 0 30px rgba(255,105,180,0.6); }
-        }
-
-        .card-love .floating-hearts {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            pointer-events: none;
-        }
-
-        .card-love .floating-hearts span {
-            position: absolute;
-            color: rgba(255,255,255,0.6);
             font-size: 1.5rem;
-            animation: floatHeart 4s linear infinite;
+            margin-top: 20px;
+            text-align: center;
         }
 
-        @keyframes floatHeart {
-            0% { transform: translateY(100%) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(-100%) rotate(360deg); opacity: 0; }
-        }
-
-        /* Second Card: Valentine Question */
-        .card-question {
-            position: relative;
-            width: 100%;
-            max-width: 500px;
-            min-height: 450px;
-            border-radius: 30px;
-            overflow: hidden;
+        .card-back {
             background: linear-gradient(135deg, #fff0f5 0%, #ffe4ec 100%);
-            box-shadow: 0 20px 60px rgba(233, 30, 99, 0.2);
+            transform: rotateY(180deg);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 40px 30px;
+            padding: 30px;
+            border: 3px solid #e91e63;
         }
 
-        .card-question .cute-creature {
+        /* Interactive Creature */
+        .creature-container {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .creature-container:hover {
+            transform: scale(1.1);
+        }
+
+        .creature {
             font-size: 6rem;
-            margin-bottom: 20px;
-            animation: bounce 1s ease-in-out infinite;
+            animation: creatureIdle 3s ease-in-out infinite;
             transition: all 0.3s ease;
         }
 
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+        @keyframes creatureIdle {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-10px) scale(1.02); }
         }
 
-        .card-question .question-text {
+        .creature.reaction-watery {
+            animation: wateryEyes 0.5s ease infinite;
+        }
+
+        @keyframes wateryEyes {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(0.9) drop-shadow(0 0 10px blue); }
+        }
+
+        .creature.reaction-stars {
+            animation: seeingStars 0.3s ease infinite;
+        }
+
+        @keyframes seeingStars {
+            0%, 100% { transform: translateX(0) rotate(0deg); }
+            25% { transform: translateX(-5px) rotate(-5deg); }
+            75% { transform: translateX(5px) rotate(5deg); }
+        }
+
+        .creature.reaction-hurt {
+            transform: scale(0.9);
+        }
+
+        .creature-bubble {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: #e91e63;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .creature-container:hover .creature-bubble {
+            opacity: 1;
+        }
+
+        /* Bouquet held by creature */
+        .creature-bouquet {
+            position: absolute;
+            bottom: -10px;
+            right: -20px;
+            font-size: 3rem;
+            transform: rotate(15deg);
+            animation: bouquetSway 2s ease-in-out infinite;
+        }
+
+        @keyframes bouquetSway {
+            0%, 100% { transform: rotate(10deg); }
+            50% { transform: rotate(20deg); }
+        }
+
+        /* Valentine Question Card */
+        .question-text {
             color: #e91e63;
             font-size: 1.8rem;
             font-weight: bold;
             text-align: center;
-            margin-bottom: 30px;
-            transition: all 0.3s ease;
+            margin: 20px 0;
+            font-family: 'Georgia', serif;
         }
 
-        .card-question .buttons-container {
+        .buttons-container {
             display: flex;
-            gap: 30px;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-        }
-
-        .card-question .btn {
-            padding: 15px 50px;
-            font-size: 1.3rem;
-            font-weight: bold;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .card-question .btn-yes {
-            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
-            color: #fff;
-            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
-        }
-
-        .card-question .btn-yes:hover {
-            transform: scale(1.05);
-            box-shadow: 0 12px 35px rgba(255, 107, 107, 0.5);
-        }
-
-        .card-question .btn-no {
-            background: linear-gradient(135deg, #bdc3c7, #95a5a6);
-            color: #fff;
-            box-shadow: 0 8px 25px rgba(189, 195, 199, 0.4);
-        }
-
-        .card-question .btn-no:hover {
-            background: linear-gradient(135deg, #95a5a6, #7f8c8d);
-        }
-
-        /* Watery eyes effect */
-        .creature-watery .cute-creature::after {
-            content: '💧💧';
-            position: absolute;
-            font-size: 1rem;
-            animation: tears 1s ease-in-out infinite;
-        }
-
-        @keyframes tears {
-            0%, 100% { opacity: 0; transform: translateY(0); }
-            50% { opacity: 1; transform: translateY(5px); }
-        }
-
-        /* Third Card: Hydrangeas Bouquet */
-        .card-hydrangea {
-            position: relative;
-            width: 100%;
-            max-width: 500px;
-            height: 400px;
-            border-radius: 30px;
-            overflow: hidden;
-            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 50%, #a5d6a7 100%);
-            box-shadow: 0 20px 60px rgba(76, 175, 80, 0.3);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 30px;
-        }
-
-        .card-hydrangea .hydrangea-bg {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            opacity: 0.3;
-            background-image: 
-                radial-gradient(circle at 20% 80%, #87ceeb 0%, transparent 30%),
-                radial-gradient(circle at 80% 20%, #98fb98 0%, transparent 30%),
-                radial-gradient(circle at 40% 40%, #dda0dd 0%, transparent 40%),
-                radial-gradient(circle at 60% 60%, #ffb6c1 0%, transparent 35%);
-            animation: hydrangeaSway 4s ease-in-out infinite;
-        }
-
-        @keyframes hydrangeaSway {
-            0%, 100% { transform: scale(1) rotate(0deg); }
-            50% { transform: scale(1.05) rotate(2deg); }
-        }
-
-        .card-hydrangea .content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-        }
-
-        .card-hydrangea .creature-bouquet {
-            font-size: 5rem;
-            margin-bottom: 15px;
-            animation: presentBounce 2s ease-in-out infinite;
-        }
-
-        @keyframes presentBounce {
-            0%, 100% { transform: translateY(0) rotate(-5deg); }
-            50% { transform: translateY(-10px) rotate(5deg); }
-        }
-
-        .card-hydrangea .bouquet-text {
-            color: #2e7d32;
-            font-size: 1.6rem;
-            font-weight: bold;
-            margin-bottom: 20px;
-            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
-        }
-
-        .card-hydrangea .hydrangea-flowers {
-            font-size: 3rem;
-            animation: flowerWave 3s ease-in-out infinite;
-        }
-
-        @keyframes flowerWave {
-            0%, 100% { transform: rotate(-10deg); }
-            50% { transform: rotate(10deg); }
-        }
-
-        .card-hydrangea .btn-accept {
+            gap: 20px;
             margin-top: 20px;
+        }
+
+        .btn {
             padding: 15px 40px;
             font-size: 1.2rem;
             font-weight: bold;
-            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
-            color: #fff;
             border: none;
             border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
             transition: all 0.3s ease;
-            animation: pulseAccept 2s ease-in-out infinite;
+            font-family: 'Georgia', serif;
         }
 
-        @keyframes pulseAccept {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+        .btn-yes {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: white;
+            box-shadow: 0 5px 20px rgba(255, 107, 107, 0.4);
         }
 
-        .card-hydrangea .btn-accept:hover {
-            transform: scale(1.1);
-            box-shadow: 0 12px 35px rgba(255, 107, 107, 0.5);
-        }
-
-        /* Photos Section (Hidden by default) */
-        .card-photos {
-            display: none;
-            width: 100%;
-            max-width: 500px;
-            border-radius: 30px;
-            overflow: hidden;
-            background: linear-gradient(135deg, #fff0f5 0%, #ffe4ec 100%);
-            box-shadow: 0 20px 60px rgba(233, 30, 99, 0.3);
-            padding: 30px;
-            animation: fadeIn 1s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        .card-photos.show {
-            display: block;
-        }
-
-        .card-photos .photos-title {
-            color: #e91e63;
-            font-size: 1.5rem;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .card-photos .photos-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-        }
-
-        .card-photos .photo-frame {
-            position: relative;
-            aspect-ratio: 1;
-            border-radius: 15px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .card-photos .photo-frame::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border: 3px solid #ff6b6b;
-            border-radius: 15px;
-            opacity: 0.8;
-            z-index: 2;
-            pointer-events: none;
-        }
-
-        .card-photos .photo-frame::after {
-            content: '💕';
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            font-size: 0.8rem;
-            z-index: 3;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .card-photos .photo-frame:hover {
+        .btn-yes:hover {
             transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(233, 30, 99, 0.3);
+            box-shadow: 0 8px 30px rgba(255, 107, 107, 0.6);
         }
 
-        .card-photos .photo-frame:hover::after {
+        .btn-no {
+            background: linear-gradient(135deg, #bdc3c7, #95a5a6);
+            color: white;
+            box-shadow: 0 5px 20px rgba(189, 195, 199, 0.4);
+        }
+
+        .btn-no:hover {
+            background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+        }
+
+        /* Photos Gallery Card */
+        .photos-gallery {
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .photos-gallery::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .photos-gallery::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .photos-gallery::-webkit-scrollbar-thumb {
+            background: #e91e63;
+            border-radius: 10px;
+        }
+
+        .photo-item {
+            margin-bottom: 20px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.8s ease;
+        }
+
+        .photo-item.visible {
+            transform: translateY(0);
             opacity: 1;
         }
 
-        .card-photos .photo-frame img {
+        .photo-item img {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-
-        .card-photos .photo-frame:hover img {
-            transform: scale(1.1);
-        }
-
-        .card-photos .photo-frame .frame-decoration {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(transparent, rgba(233, 30, 99, 0.8));
-            padding: 8px 5px 5px;
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-            z-index: 2;
-        }
-
-        .card-photos .photo-frame:hover .frame-decoration {
-            transform: translateY(0);
-        }
-
-        .card-photos .photo-frame .frame-decoration span {
-            color: #fff;
-            font-size: 0.65rem;
-            text-align: center;
             display: block;
         }
 
-        /* Different frame styles */
-        .card-photos .photo-frame.frame-heart::before {
-            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+        .photo-caption {
+            background: linear-gradient(transparent, rgba(233, 30, 99, 0.9));
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-size: 1rem;
         }
 
-        .card-photos .photo-frame.frame-double {
-            border: 4px double #e91e63;
-        }
-
-        .card-photos .photo-frame.frame-dotted {
-            border: 3px dotted #ff6b6b;
-        }
-
-        .card-photos .photo-frame.frame-wavy {
-            border-radius: 20px;
-            border: 3px solid #ff6b6b;
-        }
-
-        /* Fourth Card: Yusuf's Message */
-        .card-message {
-            position: relative;
+        /* Love Letter Card */
+        .letter-container {
             width: 100%;
-            max-width: 500px;
-            border-radius: 30px;
-            overflow: hidden;
-            background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 50%, #ffe082 100%);
-            box-shadow: 0 20px 60px rgba(255, 193, 7, 0.3);
-            padding: 40px 30px;
+            height: 100%;
+            background: linear-gradient(135deg, #fff9e6 0%, #fff5f5 100%);
+            border-radius: 15px;
+            padding: 30px;
+            overflow-y: auto;
+            box-shadow: 
+                0 10px 40px rgba(0, 0, 0, 0.2),
+                inset 0 0 50px rgba(255, 105, 180, 0.05);
+            border: 1px solid rgba(233, 30, 99, 0.1);
         }
 
-        .card-message .message-creature {
-            text-align: center;
-            font-size: 4rem;
-            margin-bottom: 20px;
-            animation: wiggle 2s ease-in-out infinite;
+        .letter-container::-webkit-scrollbar {
+            width: 8px;
         }
 
-        @keyframes wiggle {
-            0%, 100% { transform: rotate(-5deg); }
-            50% { transform: rotate(5deg); }
+        .letter-container::-webkit-scrollbar-track {
+            background: rgba(255, 105, 180, 0.1);
+            border-radius: 10px;
         }
 
-        .card-message .message-content {
-            color: #5d4037;
+        .letter-container::-webkit-scrollbar-thumb {
+            background: #e91e63;
+            border-radius: 10px;
+        }
+
+        .letter {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            color: #4a4a4a;
+            line-height: 2;
             font-size: 1.1rem;
-            line-height: 1.8;
-            text-align: center;
+            text-align: justify;
         }
 
-        .card-message .message-content .highlight {
+        .letter p {
+            margin-bottom: 20px;
+            text-indent: 30px;
+        }
+
+        .letter .highlight {
             color: #e91e63;
             font-weight: bold;
-            font-size: 1.3rem;
+            text-indent: 0;
         }
 
-        .card-message .message-content .jokes {
+        .letter .poopy {
             font-style: italic;
             color: #8d6e63;
         }
 
-        .card-message .signature {
-            margin-top: 25px;
-            text-align: center;
-        }
-
-        .card-message .signature .from-text {
+        .letter .emphasis {
+            font-size: 1.3rem;
             color: #e91e63;
+            text-align: center;
+            margin: 30px 0;
+            text-indent: 0;
+        }
+
+        .letter .signature {
+            text-align: right;
+            margin-top: 40px;
+            text-indent: 0;
+        }
+
+        .letter .signature .name {
             font-size: 1.5rem;
+            color: #e91e63;
             font-weight: bold;
-            animation: signPulse 2s ease-in-out infinite;
         }
 
-        @keyframes signPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        .card-message .signature .only-yours {
+        .letter .signature .only-yours {
             color: #ff6b6b;
-            font-size: 1rem;
+            font-style: italic;
             margin-top: 10px;
         }
 
-        /* Success State */
-        .card-success {
-            display: none;
+        /* Flower Rain Animation */
+        .flower-rain {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #ffecd2 100%);
+            pointer-events: none;
             z-index: 1000;
+            display: none;
+        }
+
+        .flower-rain.active {
+            display: block;
+        }
+
+        .flower-rain span {
+            position: absolute;
+            font-size: 2rem;
+            animation: flowerFall linear forwards;
+        }
+
+        @keyframes flowerFall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Bouquet Throw Animation */
+        .bouquet-throw {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            font-size: 8rem;
+            z-index: 999;
+            transform: translate(-50%, -50%) scale(0);
+            animation: throwBouquet 1.5s ease forwards;
+            pointer-events: none;
+        }
+
+        @keyframes throwBouquet {
+            0% { transform: translate(-50%, -50%) scale(0) rotate(0deg); opacity: 1; }
+            50% { transform: translate(-50%, -50%) scale(1.5) rotate(360deg); opacity: 1; }
+            100% { transform: translate(-50%, -150%) scale(2) rotate(720deg); opacity: 0; }
+        }
+
+        /* Success Celebration */
+        .celebration {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 105, 180, 0.9), rgba(255, 182, 193, 0.9));
+            z-index: 1001;
+            display: none;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            animation: rosyFadeIn 1s ease;
+            animation: celebrationFadeIn 0.5s ease;
         }
 
-        @keyframes rosyFadeIn {
+        .celebration.active {
+            display: flex;
+        }
+
+        @keyframes celebrationFadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
         }
 
-        .card-success.show {
-            display: flex;
-        }
-
-        .card-success .success-content {
-            text-align: center;
-            animation: celebrate 1s ease infinite;
-        }
-
-        @keyframes celebrate {
-            0%, 100% { transform: scale(1) rotate(0deg); }
-            25% { transform: scale(1.1) rotate(-5deg); }
-            75% { transform: scale(1.1) rotate(5deg); }
-        }
-
-        .card-success .big-heart {
+        .celebration .big-heart {
             font-size: 10rem;
             animation: heartbeat 0.5s ease-in-out infinite;
         }
 
-        .card-success .success-text {
+        .celebration .celebration-text {
             font-size: 3rem;
-            color: #e91e63;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
             margin-top: 20px;
-            font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .card-success .sub-text {
-            font-size: 1.5rem;
-            color: #ff6b6b;
-            margin-top: 10px;
-        }
-
-        .card-success .celebration-hearts {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            pointer-events: none;
-        }
-
-        .card-success .celebration-hearts span {
-            position: absolute;
-            color: #ff6b6b;
-            font-size: 2rem;
-            animation: fallDown 3s linear infinite;
-        }
-
-        @keyframes fallDown {
-            0% { transform: translateY(-100%) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
         }
 
         /* Responsive */
         @media (max-width: 500px) {
-            h1 {
+            .main-title {
                 font-size: 1.8rem;
-            }
-            
-            .card-love .text {
-                font-size: 1.8rem;
-            }
-            
-            .card-question .question-text {
-                font-size: 1.4rem;
-            }
-            
-            .card-question .btn {
-                padding: 12px 35px;
-                font-size: 1.1rem;
             }
 
-            .card-message .message-content {
+            .creature {
+                font-size: 4rem;
+            }
+
+            .question-text {
+                font-size: 1.4rem;
+            }
+
+            .letter {
                 font-size: 1rem;
             }
         }
     </style>
 </head>
 <body>
-    <h1>💕 For My Special Person 💕</h1>
-    
-    <div class="cards-container">
-        <!-- First Card: I Love You -->
-        <div class="card-love" id="cardLove">
-            <div class="heart-bg"></div>
-            <div class="floating-hearts" id="floatingHearts"></div>
-            <div class="overlay">
-                <span class="text">I LOVE YOU ADVIKA ❤️</span>
+    <!-- Background Hearts -->
+    <div class="bg-hearts" id="bgHearts"></div>
+
+    <!-- Main Title -->
+    <h1 class="main-title">💕 For My Advika 💕</h1>
+
+    <!-- Card Carousel -->
+    <div class="carousel-container">
+        <!-- Card 1: I Love You -->
+        <div class="playing-card active" id="card1">
+            <div class="card-face card-front">
+                <div class="creature-container" onclick="changeCreatureReaction('love')">
+                    <div class="creature" id="creature1">🥰</div>
+                    <div class="creature-bubble">Click me!</div>
+                </div>
+                <p class="card-label">Click to reveal</p>
+            </div>
+            <div class="card-face card-back">
+                <div class="creature-container" onclick="changeCreatureReaction('love')">
+                    <div class="creature" id="creature1-back">🥰</div>
+                    <div class="creature-bubble">Click me!</div>
+                </div>
+                <h2 style="color: #e91e63; font-size: 2rem; text-align: center; margin: 20px 0;">
+                    I LOVE YOU ADVIKA ❤️
+                </h2>
+                <p style="color: #666; text-align: center;">Forever and always</p>
             </div>
         </div>
 
-        <!-- Second Card: Valentine Question -->
-        <div class="card-question" id="cardQuestion">
-            <div class="cute-creature" id="cuteCreature">🥺</div>
-            <p class="question-text" id="questionText">will you be my valentine ?</p>
-            <div class="buttons-container">
-                <button class="btn btn-yes" id="btnYes">Yes</button>
-                <button class="btn btn-no" id="btnNo">No</button>
+        <!-- Card 2: Valentine Question -->
+        <div class="playing-card opposite" id="card2">
+            <div class="card-face card-front">
+                <div class="creature-container" onclick="changeCreatureReaction('love')">
+                    <div class="creature" id="creature2">🥺</div>
+                    <div class="creature-bubble">Click me!</div>
+                </div>
+                <p class="card-label">Question</p>
+            </div>
+            <div class="card-face card-back">
+                <div class="creature-container" id="questionCreature" onclick="changeCreatureReaction('love')">
+                    <div class="creature" id="creature2-back">🥺</div>
+                    <div class="creature-bubble">Click me!</div>
+                </div>
+                <p class="question-text">Will you be my Valentine?</p>
+                <div class="buttons-container">
+                    <button class="btn btn-yes" id="btnYes">Yes</button>
+                    <button class="btn btn-no" id="btnNo">No</button>
+                </div>
+                <button class="nav-btn" id="btnGoToFlowers" style="margin-top: 20px; display: none;">
+                    💐 Accept Flowers →
+                </button>
             </div>
         </div>
 
-        <!-- Third Card: Hydrangeas Bouquet -->
-        <div class="card-hydrangea" id="cardHydrangea">
-            <div class="hydrangea-bg"></div>
-            <div class="content">
-                <div class="creature-bouquet">🐻</div>
-                <p class="bouquet-text">for my pretty girl 💐</p>
-                <div class="hydrangea-flowers">
-                    💜💙💚💗🌸
+        <!-- Card 3: Flowers & Photos -->
+        <div class="playing-card opposite" id="card3">
+            <div class="card-face card-front">
+                <div class="creature-container" onclick="changeCreatureReaction('love')">
+                    <div class="creature" id="creature3">🐻</div>
+                    <div class="creature-bubble">Flowers!</div>
+                    <div class="creature-bouquet">💐</div>
                 </div>
-                <button class="btn-accept" id="btnAccept">Accept Flowers 🌸</button>
+                <p class="card-label">For You</p>
+            </div>
+            <div class="card-face card-back">
+                <div class="creature-container" id="flowersCreature" onclick="changeCreatureReaction('love')">
+                    <div class="creature" id="creature3-back">🐻</div>
+                    <div class="creature-bubble">Click me!</div>
+                    <div class="creature-bouquet">💐</div>
+                </div>
+                <p style="color: #2e7d32; font-size: 1.3rem; text-align: center; margin: 15px 0;">
+                    Your favorite flowers! 💜
+                </p>
+                <button class="btn btn-yes" id="btnAcceptFlowers" style="background: linear-gradient(135deg, #9c27b0, #673ab7);">
+                    🌸 Accept 🌸
+                </button>
             </div>
         </div>
 
-        <!-- Photos Card (Shows after accepting flowers) -->
-        <div class="card-photos" id="cardPhotos">
-            <h3 class="photos-title">💕 Our Memories 💕</h3>
-            <div class="photos-grid">
-                <div class="photo-frame frame-heart">
-                    <img src="couple.jpg" alt="Couple Photo 1">
-                    <div class="frame-decoration"><span>💕 Love</span></div>
+        <!-- Card 4: Love Letter -->
+        <div class="playing-card opposite" id="card4">
+            <div class="card-face card-front">
+                <div class="creature-container" onclick="changeCreatureReaction('love')">
+                    <div class="creature" id="creature4">💕</div>
+                    <div class="creature-bubble">Letter</div>
                 </div>
-                <div class="photo-frame frame-double">
-                    <img src="advika1.jpg" alt="Advika Photo 1">
-                    <div class="frame-decoration"><span>💖 Pretty</span></div>
-                </div>
-                <div class="photo-frame">
-                    <img src="couple2.jpg" alt="Couple Photo 2">
-                    <div class="frame-decoration"><span>💗 Sweet</span></div>
-                </div>
-                <div class="photo-frame frame-wavy">
-                    <img src="advika2.jpg" alt="Advika Photo 2">
-                    <div class="frame-decoration"><span>💝 Beautiful</span></div>
-                </div>
-                <div class="photo-frame frame-dotted">
-                    <img src="couple3.jpg" alt="Couple Photo 3">
-                    <div class="frame-decoration"><span>💞 Together</span></div>
-                </div>
-                <div class="photo-frame frame-heart">
-                    <img src="advika3.jpg" alt="Advika Photo 3">
-                    <div class="frame-decoration"><span>💓 Gorgeous</span></div>
-                </div>
-                <div class="photo-frame">
-                    <img src="couple4.jpg" alt="Couple Photo 4">
-                    <div class="frame-decoration"><span>💘 Forever</span></div>
-                </div>
-                <div class="photo-frame frame-double">
-                    <img src="advika4.jpg" alt="Advika Photo 4">
-                    <div class="frame-decoration"><span>💋 Amazing</span></div>
-                </div>
+                <p class="card-label">My Heart</p>
             </div>
-        </div>
-
-        <!-- Fourth Card: Yusuf's Message -->
-        <div class="card-message" id="cardMessage">
-            <div class="message-creature">💕</div>
-            <div class="message-content">
-                <p>
-                    i love your eyes, your piercings, your hair, 
-                    <span class="highlight">your "poopy" brown eyes</span>
-                </p>
-                <p class="jokes" style="margin: 10px 0;">(jokes aside)</p>
-                <p>
-                    i love those eyes<br>
-                    i love to look at them<br>
-                    and your face<br>
-                    i would love to kiss you<br>
-                    <span class="highlight">anytime and everytime</span><br>
-                    i get the chance
-                </p>
-                <p style="margin-top: 15px;">
-                    i loveeeeee youuuuuuu 💕
-                </p>
-                <p>
-                    and i want to keep loving you
-                </p>
-            </div>
-            <div class="signature">
-                <p class="from-text">yours yusuf</p>
-                <p class="only-yours">and only yours ❤️</p>
+            <div class="card-face card-back">
+                <div class="letter-container" id="letterContainer">
+                    <div class="letter">
+                        <p>
+                            i love your eyes,<br>
+                            your piercings,<br>
+                            your hair,<br>
+                            <span class="poopy">your "poopy" brown eyes</span>
+                        </p>
+                        <p style="text-align: center; margin: 20px 0;">(jokes aside)</p>
+                        <p>
+                            i love those eyes.<br>
+                            i love to look at them.<br>
+                            and your face.
+                        </p>
+                        <p>
+                            i would love to kiss you,<br>
+                            anytime<br>
+                            and everytime<br>
+                            i get the chance.
+                        </p>
+                        <p class="emphasis">
+                            i loveeeeee youuuuuuu 💕<br>
+                            and i want to keep loving you.
+                        </p>
+                        <p>
+                            i love the little side eyes you give,<br>
+                            the cute ones you don't even notice you do.<br>
+                            the way you look when you're being silly,<br>
+                            when you're not trying at all,<br>
+                            and somehow that's when you're the most you.
+                        </p>
+                        <p>
+                            i love your drunk mode,<br>
+                            the softness, the chaos, the honesty,<br>
+                            the way you become extra you,<br>
+                            like your heart forgets how to hold back.
+                        </p>
+                        <p>
+                            i love your silliness,<br>
+                            your random moments,<br>
+                            the way you make ordinary seconds feel lighter.
+                        </p>
+                        <p>
+                            you're on my mind all the time,<br>
+                            in the quiet moments,<br>
+                            in the busy ones,<br>
+                            24/7, without effort, without trying.
+                        </p>
+                        <p class="signature">
+                            yours,<br>
+                            <span class="name">yusuf</span><br>
+                            <span class="only-yours">and only yours ❤️</span>
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Success Overlay -->
-    <div class="card-success" id="cardSuccess">
-        <div class="celebration-hearts" id="celebrationHearts"></div>
-        <div class="success-content">
-            <div class="big-heart">💕</div>
-            <p class="success-text">YAYYYY! ❤️</p>
-            <p class="sub-text">You made me the happiest!</p>
-        </div>
+    <!-- Navigation -->
+    <div class="nav-buttons">
+        <button class="nav-btn" id="btnPrev" disabled>← Previous</button>
+        <button class="nav-btn" id="btnNext">Next →</button>
+    </div>
+
+    <!-- Flower Rain Container -->
+    <div class="flower-rain" id="flowerRain"></div>
+
+    <!-- Bouquet Throw Animation -->
+    <div class="bouquet-throw" id="bouquetThrow">💐</div>
+
+    <!-- Celebration Overlay -->
+    <div class="celebration" id="celebration">
+        <div class="big-heart">💕</div>
+        <div class="celebration-text">YAYYYY! ❤️</div>
+        <p style="color: white; font-size: 1.5rem; margin-top: 20px;">You made me the happiest!</p>
     </div>
 
     <script>
-        // Create floating hearts for first card
-        const floatingHeartsContainer = document.getElementById('floatingHearts');
-        const heartEmojis = ['❤️', '💕', '💗', '💖', '💓', '💘', '💝'];
+        // Creature Reactions
+        const creatureReactions = {
+            love: { emoji: '🥰', bubble: 'Love you! 💕' },
+            watery: { emoji: '😢', bubble: '🥺💧' },
+            stars: { emoji: '😵‍💫', bubble: '😵‍💫✨' },
+            hurt: { emoji: '😢', bubble: 'Nooo! 💔' },
+            happy: { emoji: '😊', bubble: 'Yay! 🎉' },
+            kiss: { emoji: '😘', bubble: 'Muah! 💋' },
+            shy: { emoji: '😊', bubble: 'So shy! 🥰' }
+        };
 
-        function createFloatingHeart() {
-            const span = document.createElement('span');
-            span.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
-            span.style.left = Math.random() * 100 + '%';
-            span.style.animationDuration = (Math.random() * 2 + 3) + 's';
-            span.style.animationDelay = Math.random() * 2 + 's';
-            floatingHeartsContainer.appendChild(span);
+        let currentReaction = 'love';
+        let reactionTimeout = null;
 
-            setTimeout(() => span.remove(), 5000);
-        }
+        function changeCreatureReaction(reaction) {
+            const creatures = document.querySelectorAll('.creature');
+            const bubbles = document.querySelectorAll('.creature-bubble');
 
-        setInterval(createFloatingHeart, 800);
-
-        // Valentine Question Logic
-        const btnYes = document.getElementById('btnYes');
-        const btnNo = document.getElementById('btnNo');
-        const questionText = document.getElementById('questionText');
-        const cuteCreature = document.getElementById('cuteCreature');
-        const cardQuestion = document.getElementById('cardQuestion');
-        const cardSuccess = document.getElementById('cardSuccess');
-        const celebrationHearts = document.getElementById('celebrationHearts');
-        const cardHydrangea = document.getElementById('cardHydrangea');
-        const btnAccept = document.getElementById('btnAccept');
-        const cardPhotos = document.getElementById('cardPhotos');
-
-        let noClickCount = 0;
-        let yesScale = 1;
-        let fontIndex = 0;
-
-        const noMessages = [
-            "please say yes 🥺",
-            "don't break my heart 💔",
-            "just say yes pretty please 🙏",
-            "I promise I'll be good 😢",
-            "one chance is all I ask 🥺💕",
-            "pretty please with cherry on top 🍒",
-            "my heart is waiting 💝",
-            "don't say no again 😞",
-            "you're my favorite person ❤️",
-            "say yes and make my day 🌟"
-        ];
-
-        const cuteFonts = [
-            "'Comic Sans MS', cursive",
-            "'Brush Script MT', cursive",
-            "'Lucida Handwriting', cursive",
-            "'Segoe Script', cursive",
-            "'Bradley Hand', cursive",
-            "'Snell Roundhand', cursive",
-            "'URW Chancery L', cursive",
-            "cursive"
-        ];
-
-        const creatureStates = ['🥺', '😢', '😭', '🥺💔', '😿', '🥺👉👈', '💔🥺', '😔🥺'];
-
-        btnYes.addEventListener('click', () => {
-            // Show success celebration
-            cardSuccess.classList.add('show');
-            
-            // Create celebration hearts
-            for (let i = 0; i < 50; i++) {
-                setTimeout(() => {
-                    const span = document.createElement('span');
-                    span.textContent = '❤️';
-                    span.style.left = Math.random() * 100 + '%';
-                    span.style.animationDuration = (Math.random() * 2 + 2) + 's';
-                    celebrationHearts.appendChild(span);
-                }, i * 100);
+            // Clear existing timeout
+            if (reactionTimeout) {
+                clearTimeout(reactionTimeout);
             }
 
-            // Confetti effect
-            for (let i = 0; i < 30; i++) {
-                setTimeout(() => {
-                    const span = document.createElement('span');
-                    span.textContent = ['💕', '💗', '💖', '🌸', '🎀'][Math.floor(Math.random() * 5)];
-                    span.style.left = Math.random() * 100 + '%';
-                    span.style.animationDuration = (Math.random() * 1 + 1) + 's';
-                    celebrationHearts.appendChild(span);
-                }, i * 80);
+            // Apply new reaction
+            creatures.forEach((creature, index) => {
+                creature.textContent = creatureReactions[reaction].emoji;
+                creature.classList.remove('reaction-watery', 'reaction-stars', 'reaction-hurt');
+                
+                if (reaction === 'watery') {
+                    creature.classList.add('reaction-watery');
+                } else if (reaction === 'stars') {
+                    creature.classList.add('reaction-stars');
+                } else if (reaction === 'hurt') {
+                    creature.classList.add('reaction-hurt');
+                }
+            });
+
+            bubbles.forEach(bubble => {
+                bubble.textContent = creatureReactions[reaction].bubble;
+            });
+
+            currentReaction = reaction;
+
+            // Return to loving state after 2 seconds
+            reactionTimeout = setTimeout(() => {
+                changeCreatureReaction('love');
+            }, 2000);
+        }
+
+        // Creature click cycle through reactions
+        document.querySelectorAll('.creature-container').forEach(container => {
+            const reactions = ['love', 'watery', 'stars', 'happy', 'kiss', 'shy'];
+            let reactionIndex = 0;
+
+            container.addEventListener('click', (e) => {
+                e.stopPropagation();
+                reactionIndex = (reactionIndex + 1) % reactions.length;
+                changeCreatureReaction(reactions[reactionIndex]);
+            });
+        });
+
+        // Card Navigation
+        const cards = document.querySelectorAll('.playing-card');
+        let currentCard = 0;
+        const totalCards = cards.length;
+
+        function showCard(index) {
+            cards.forEach((card, i) => {
+                card.classList.remove('active', 'opposite', 'flipped');
+                if (i === index) {
+                    card.classList.add('active');
+                } else if (i < index) {
+                    card.classList.add('flipped');
+                } else {
+                    card.classList.add('opposite');
+                }
+            });
+
+            document.getElementById('btnPrev').disabled = index === 0;
+            document.getElementById('btnNext').disabled = index === totalCards - 1;
+        }
+
+        document.getElementById('btnNext').addEventListener('click', () => {
+            if (currentCard < totalCards - 1) {
+                currentCard++;
+                showCard(currentCard);
             }
         });
 
-        btnNo.addEventListener('click', () => {
+        document.getElementById('btnPrev').addEventListener('click', () => {
+            if (currentCard > 0) {
+                currentCard--;
+                showCard(currentCard);
+            }
+        });
+
+        // Card flip on click
+        cards.forEach((card, index) => {
+            card.addEventListener('click', (e) => {
+                if (!e.target.closest('.btn') && !e.target.closest('.creature-container')) {
+                    card.classList.toggle('flipped');
+                }
+            });
+        });
+
+        // Valentine Question Logic
+        let noClickCount = 0;
+        let yesScale = 1;
+
+        document.getElementById('btnYes').addEventListener('click', () => {
+            // Show success and go to flowers
+            document.getElementById('celebration').classList.add('active');
+            
+            setTimeout(() => {
+                document.getElementById('celebration').classList.remove('active');
+                currentCard = 2; // Go to flowers card
+                showCard(currentCard);
+                document.getElementById('btnGoToFlowers').style.display = 'block';
+            }, 2000);
+        });
+
+        document.getElementById('btnNo').addEventListener('click', () => {
             noClickCount++;
             
             // Increase Yes button size
             yesScale += 0.3;
-            btnYes.style.transform = `scale(${yesScale})`;
-            btnYes.style.padding = `${15 + yesScale * 5}px ${50 + yesScale * 10}px`;
+            document.getElementById('btnYes').style.transform = `scale(${yesScale})`;
+            document.getElementById('btnYes').style.padding = `${15 + yesScale * 5}px ${50 + yesScale * 10}px`;
             
-            // Move No button to random position
-            const containerRect = cardQuestion.getBoundingClientRect();
-            const btnRect = btnNo.getBoundingClientRect();
-            
-            const maxX = containerRect.width - btnRect.width - 40;
-            const maxY = containerRect.height - btnRect.height - 40;
+            // Move No button randomly
+            const btnNo = document.getElementById('btnNo');
+            const container = btnNo.parentElement;
+            const maxX = container.offsetWidth - btnNo.offsetWidth - 40;
+            const maxY = container.offsetHeight - btnNo.offsetHeight - 40;
             
             const randomX = Math.max(10, Math.random() * maxX - 10);
             const randomY = Math.max(10, Math.random() * maxY - 10);
@@ -836,98 +855,132 @@
             btnNo.style.left = randomX + 'px';
             btnNo.style.top = randomY + 'px';
             
-            // Change text message
-            if (noClickCount < noMessages.length) {
-                questionText.textContent = noMessages[noClickCount - 1];
-            } else {
-                questionText.textContent = "I won't give up! 💕";
-            }
-            
-            // Change creature to watery eyes/sad
-            cuteCreature.textContent = creatureStates[noClickCount % creatureStates.length];
-            
-            // Change font progressively
-            fontIndex = Math.min(fontIndex + 1, cuteFonts.length - 1);
-            questionText.style.fontFamily = cuteFonts[fontIndex];
-            
-            // Add shake effect to No button
-            btnNo.style.animation = 'none';
-            setTimeout(() => {
-                btnNo.style.animation = 'shake 0.5s ease';
-            }, 10);
+            // Creature reaction
+            changeCreatureReaction(noClickCount > 3 ? 'stars' : 'watery');
         });
 
-        // Hydrangeas Accept Button
-        btnAccept.addEventListener('click', () => {
-            // Show photos card with animation
-            cardPhotos.classList.add('show');
+        // Accept Flowers & Photo Gallery
+        const photoFiles = [
+            'WhatsApp Image 2026-02-07 at 5.52.10 PM.jpeg',
+            'WhatsApp Image 2026-02-07 at 5.52.11 PM (1).jpeg',
+            'WhatsApp Image 2026-02-07 at 5.52.11 PM (2).jpeg',
+            'WhatsApp Image 2026-02-07 at 5.52.11 PM (3).jpeg',
+            'WhatsApp Image 2026-02-07 at 5.52.11 PM.jpeg',
+            'WhatsApp Image 2026-02-07 at 5.52.49 PM (1).jpeg',
+            'WhatsApp Image 2026-02-07 at 5.52.49 PM.jpeg',
+            'WhatsApp Image 2026-02-07 at 5.52.50 PM.jpeg'
+        ];
+
+        const photoCaptions = [
+            'My beautiful queen 💕',
+            'Those eyes though 😍',
+            'My favorite person 🌟',
+            'Gorgeous as ever 💖',
+            'Love of my life 💝',
+            'My everything 💗',
+            'Simply beautiful 🌸',
+            'My heart belongs to you 💔'
+        ];
+
+        document.getElementById('btnAcceptFlowers').addEventListener('click', () => {
+            // Change creature to happy
+            changeCreatureReaction('happy');
             
-            // Celebration for accepting flowers
-            for (let i = 0; i < 30; i++) {
+            // Throw bouquet animation
+            const bouquet = document.getElementById('bouquetThrow');
+            bouquet.style.display = 'block';
+            
+            setTimeout(() => {
+                bouquet.style.display = 'none';
+                
+                // Flower rain
+                const flowerRain = document.getElementById('flowerRain');
+                flowerRain.classList.add('active');
+                
+                const flowers = ['💐', '💜', '💙', '🤍', '💗', '🌸', '🌺', '🫧'];
+                
+                for (let i = 0; i < 100; i++) {
+                    setTimeout(() => {
+                        const span = document.createElement('span');
+                        span.textContent = flowers[Math.floor(Math.random() * flowers.length)];
+                        span.style.left = Math.random() * 100 + '%';
+                        span.style.animationDuration = (Math.random() * 2 + 3) + 's';
+                        flowerRain.appendChild(span);
+                    }, i * 50);
+                }
+                
+                // Show photos
                 setTimeout(() => {
-                    const span = document.createElement('span');
-                    span.textContent = ['💐', '🌸', '💗', '💖', '🌺'][Math.floor(Math.random() * 5)];
-                    span.style.position = 'fixed';
-                    span.style.left = Math.random() * 100 + '%';
-                    span.style.top = '-50px';
-                    span.style.fontSize = (Math.random() * 1.5 + 1) + 'rem';
-                    span.style.animation = `fallDown ${Math.random() * 2 + 2}s linear`;
-                    document.body.appendChild(span);
-                    
-                    setTimeout(() => span.remove(), 4000);
-                }, i * 100);
-            }
-
-            // Scroll to photos
-            setTimeout(() => {
-                cardPhotos.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 500);
+                    showPhotoGallery();
+                }, 1000);
+                
+                // Stop rain after 10 seconds
+                setTimeout(() => {
+                    flowerRain.classList.remove('active');
+                    flowerRain.innerHTML = '';
+                }, 10000);
+            }, 1500);
         });
 
-        // Add shake keyframes dynamically
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes shake {
-                0%, 100% { transform: translateX(0); }
-                25% { transform: translateX(-10px); }
-                75% { transform: translateX(10px); }
-            }
-        `;
-        document.head.appendChild(style);
+        function showPhotoGallery() {
+            // Check if photos already added
+            const existingPhotos = document.querySelectorAll('.photo-item');
+            if (existingPhotos.length > 0) return;
 
-        // Make Yes button follow mouse slightly when No is clicked multiple times
-        let yesFollowsMouse = false;
-        
-        if (noClickCount >= 3) {
-            yesFollowsMouse = true;
+            const gallery = document.createElement('div');
+            gallery.className = 'photos-gallery';
+            gallery.style.width = '100%';
+            gallery.style.height = '100%';
+
+            photoFiles.forEach((file, index) => {
+                const photoItem = document.createElement('div');
+                photoItem.className = 'photo-item';
+                photoItem.innerHTML = `
+                    <img src="C:/Users/yusuf/Downloads/love/${file}" alt="Photo ${index + 1}">
+                    <div class="photo-caption">${photoCaptions[index]}</div>
+                `;
+                gallery.appendChild(photoItem);
+            });
+
+            // Replace the card back content with gallery
+            const card3Back = document.querySelector('#card3 .card-back');
+            card3Back.innerHTML = '';
+            card3Back.appendChild(gallery);
+
+            // Animate photos on scroll
+            setTimeout(() => {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                        }
+                    });
+                }, { threshold: 0.1 });
+
+                document.querySelectorAll('.photo-item').forEach(item => {
+                    observer.observe(item);
+                });
+            }, 100);
         }
 
-        document.addEventListener('mousemove', (e) => {
-            if (yesFollowsMouse && !cardSuccess.classList.contains('show')) {
-                const containerRect = cardQuestion.getBoundingClientRect();
-                const btnRect = btnYes.getBoundingClientRect();
-                
-                let x = e.clientX - containerRect.left - btnRect.width / 2;
-                let y = e.clientY - containerRect.top - btnRect.height / 2;
-                
-                // Keep within bounds
-                x = Math.max(10, Math.min(x, containerRect.width - btnRect.width - 10));
-                y = Math.max(10, Math.min(y, containerRect.height - btnRect.height - 10));
-                
-                btnYes.style.position = 'absolute';
-                btnYes.style.left = x + 'px';
-                btnYes.style.top = y + 'px';
-            }
-        });
+        // Background floating hearts
+        function createBgHeart() {
+            const heart = document.createElement('span');
+            heart.textContent = ['❤️', '💕', '💗', '💖', '💓'][Math.floor(Math.random() * 5)];
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            heart.style.animationDelay = Math.random() * 5 + 's';
+            document.getElementById('bgHearts').appendChild(heart);
 
-        // Add hover effect for photo frames
-        document.querySelectorAll('.photo-frame').forEach(frame => {
-            frame.addEventListener('mouseenter', () => {
-                frame.style.zIndex = '10';
-            });
-            frame.addEventListener('mouseleave', () => {
-                frame.style.zIndex = '1';
-            });
+            setTimeout(() => heart.remove(), 20000);
+        }
+
+        setInterval(createBgHeart, 2000);
+
+        // Go to flowers button
+        document.getElementById('btnGoToFlowers').addEventListener('click', () => {
+            currentCard = 2;
+            showCard(currentCard);
         });
     </script>
 </body>
