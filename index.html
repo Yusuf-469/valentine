@@ -241,84 +241,84 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-shadow: none;
             filter: drop-shadow(0 1px 1px rgba(0,0,0,0.3));
         }
 
-        /* Card 1 - Eyes */
-        .card1 .photo-container {
-            width: 100%;
-            height: 60%;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .card1 .photo {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 8s ease;
-        }
-
-        .card1:hover .photo {
-            transform: scale(1.1);
-        }
-
-        .card1 .text-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 30px 20px;
-            background: linear-gradient(transparent, rgba(26, 26, 26, 0.95));
-            text-align: center;
-        }
-
-        .card1 .main-text {
-            font-family: 'Playfair Display', serif;
-            color: var(--cream);
-            font-size: 1.3rem;
-            line-height: 1.6;
-        }
-
-        /* Card 2 - Kiss */
-        .card2 .photo-container {
+        /* Photo Container */
+        .photo-container {
             width: 100%;
             height: 55%;
             overflow: hidden;
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--burgundy), #1a1a1a);
         }
 
-        .card2 .photo {
+        .photo {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 8s ease;
         }
 
-        .card2:hover .photo {
+        .card:hover .photo {
             transform: scale(1.1);
         }
 
-        .card2 .text-overlay {
-            padding: 25px 20px;
-            text-align: center;
-            height: 45%;
+        /* Placeholder for missing photos */
+        .photo-placeholder {
             display: flex;
             flex-direction: column;
+            align-items: center;
             justify-content: center;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--burgundy), #8b3a42);
+            color: var(--gold);
+            text-align: center;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        .card2 .main-text {
+        .photo-placeholder:hover {
+            background: linear-gradient(135deg, #8b3a42, var(--burgundy));
+        }
+
+        .photo-placeholder .icon {
+            font-size: 4rem;
+            margin-bottom: 15px;
+        }
+
+        .photo-placeholder .text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+        }
+
+        .photo-placeholder .subtext {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-top: 10px;
+        }
+
+        /* Text Overlay */
+        .text-overlay {
+            padding: 25px 20px;
+            text-align: center;
+        }
+
+        .main-text {
             font-family: 'Playfair Display', serif;
             color: var(--burgundy);
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             line-height: 1.7;
             font-style: italic;
         }
 
         /* Card 3 - Valentine with Creature */
-        .card3 .creature-section {
+        .creature-section {
             height: 100%;
             display: flex;
             flex-direction: column;
@@ -326,13 +326,12 @@
             justify-content: center;
             padding: 20px;
             background: linear-gradient(135deg, var(--champagne) 0%, var(--cream) 50%, var(--champagne) 100%);
-            position: relative;
         }
 
-        .card3 .letter-preview {
+        .letter-preview {
             font-family: 'Cormorant Garamond', serif;
             color: var(--burgundy);
-            font-size: 1rem;
+            font-size: 0.95rem;
             line-height: 1.5;
             text-align: center;
             margin-bottom: 15px;
@@ -344,6 +343,7 @@
             position: relative;
             cursor: pointer;
             transition: transform 0.3s ease;
+            margin: 15px 0;
         }
 
         .creature-container:hover {
@@ -470,39 +470,38 @@
         }
 
         /* Card 4 - Forever & Photos */
-        .card4 .gallery-section {
+        .gallery-section {
             height: 100%;
             display: flex;
             flex-direction: column;
             padding: 15px;
             background: linear-gradient(135deg, var(--cream) 0%, var(--champagne) 100%);
-            overflow: hidden;
         }
 
-        .card4 .letter-section {
+        .letter-section {
             flex-shrink: 0;
             text-align: center;
             padding-bottom: 10px;
         }
 
-        .card4 .letter-text {
+        .letter-text {
             font-family: 'Cormorant Garamond', serif;
             color: var(--burgundy);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             line-height: 1.5;
-            max-height: 120px;
+            max-height: 100px;
             overflow: hidden;
         }
 
-        .card4 .signature {
+        .signature {
             font-family: 'Playfair Display', serif;
             color: var(--gold);
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-style: italic;
             margin-top: 10px;
         }
 
-        .card4 .photos-grid {
+        .photos-grid {
             flex: 1;
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -511,24 +510,49 @@
             padding: 5px;
         }
 
-        .card4 .photo-item {
+        .photo-item {
             aspect-ratio: 1;
             border-radius: 8px;
             overflow: hidden;
             cursor: pointer;
             position: relative;
             border: 2px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--burgundy), #1a1a1a);
         }
 
-        .card4 .photo-item img {
+        .photo-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.5s ease;
         }
 
-        .card4 .photo-item:hover img {
+        .photo-item:hover img {
             transform: scale(1.1);
+        }
+
+        .photo-item .placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            text-align: center;
+            padding: 10px;
+            width: 100%;
+            height: 100%;
+        }
+
+        .photo-item .placeholder-icon {
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+
+        .photo-item .placeholder-text {
+            font-size: 0.7rem;
         }
 
         /* Navigation */
@@ -645,25 +669,6 @@
             }
         }
 
-        /* Transition Overlay */
-        .transition-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--burgundy), #1a1a1a);
-            z-index: 550;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.5s ease;
-        }
-
-        .transition-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
         /* Celebration */
         .celebration-overlay {
             position: fixed;
@@ -773,10 +778,9 @@
                 font-size: 1.2rem;
             }
 
-            .card1 .main-text,
-            .card2 .main-text,
-            .card3 .letter-preview,
-            .card4 .letter-text {
+            .main-text,
+            .letter-preview,
+            .letter-text {
                 font-size: 1rem;
             }
 
@@ -870,9 +874,14 @@
             <div class="card-inner">
                 <div class="card-face card-back"></div>
                 <div class="card-face card-front">
-                    <div class="photo-container">
-                        <img src="C:/Users/yusuf/Downloads/love/WhatsApp Image 2026-02-07 at 5.52.49 PM (1).jpeg" alt="Advika" class="photo" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22580%22><rect fill=%22%23722f37%22 width=%22400%22 height=%22580%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2240%22 fill=%22%23d4af37%22>💕</text></svg>'">
+                    <div class="photo-container" id="photoContainer1">
+                        <div class="photo-placeholder" onclick="triggerFileSelect('file1')">
+                            <div class="icon">📷</div>
+                            <div class="text">Your Photo Here</div>
+                            <div class="subtext">Click to select</div>
+                        </div>
                     </div>
+                    <input type="file" id="file1" accept="image/*" style="display: none;" onchange="loadPhoto(event, 'photoContainer1')">
                     <div class="text-overlay">
                         <p class="main-text">
                             "I love your eyes, your piercings, your hair, your 'poopy' brown eyes (jokes aside) — 
@@ -888,9 +897,14 @@
             <div class="card-inner">
                 <div class="card-face card-back"></div>
                 <div class="card-face card-front">
-                    <div class="photo-container">
-                        <img src="C:/Users/yusuf/Downloads/love/WhatsApp Image 2026-02-07 at 5.52.49 PM.jpeg" alt="Advika" class="photo" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22580%22><rect fill=%22%23722f37%22 width=%22400%22 height=%22580%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2240%22 fill=%22%23d4af37%22>💕</text></svg>'">
+                    <div class="photo-container" id="photoContainer2">
+                        <div class="photo-placeholder" onclick="triggerFileSelect('file2')">
+                            <div class="icon">📷</div>
+                            <div class="text">Your Photo Here</div>
+                            <div class="subtext">Click to select</div>
+                        </div>
                     </div>
+                    <input type="file" id="file2" accept="image/*" style="display: none;" onchange="loadPhoto(event, 'photoContainer2')">
                     <div class="text-overlay">
                         <p class="main-text">
                             "I would love to kiss you, anytime and everytime I get the chance.<br><br>
@@ -939,7 +953,7 @@
                             <p class="signature">yours, yusuf<br>and only yours ❤️</p>
                         </div>
                         <div class="photos-grid" id="photosGrid">
-                            <!-- Photos will be loaded here -->
+                            <!-- Photos will be added here -->
                         </div>
                     </div>
                 </div>
@@ -961,9 +975,6 @@
     <!-- Bouquet Throw -->
     <div class="bouquet-throw" id="bouquetThrow">💐</div>
 
-    <!-- Transition Overlay -->
-    <div class="transition-overlay" id="transitionOverlay"></div>
-
     <!-- Celebration Overlay -->
     <div class="celebration-overlay" id="celebrationOverlay">
         <div class="celebration-heart">💕</div>
@@ -978,28 +989,22 @@
     </div>
 
     <script>
-        // Photo files from directory
-        const photoFiles = [
-            'WhatsApp Image 2026-02-07 at 5.52.49 PM (1).jpeg',
-            'WhatsApp Image 2026-02-07 at 5.52.49 PM.jpeg',
-            'WhatsApp Image 2026-02-07 at 5.52.50 PM.jpeg',
-            'WhatsApp Image 2026-02-07 at 5.52.10 PM.jpeg',
-            'WhatsApp Image 2026-02-07 at 5.52.11 PM (1).jpeg',
-            'WhatsApp Image 2026-02-07 at 5.52.11 PM (2).jpeg',
-            'WhatsApp Image 2026-02-07 at 5.52.11 PM (3).jpeg',
-            'WhatsApp Image 2026-02-07 at 5.52.11 PM.jpeg'
-        ];
+        // Photo upload functionality
+        function triggerFileSelect(fileId) {
+            document.getElementById(fileId).click();
+        }
 
-        const photoCaptions = [
-            'My beautiful 💕',
-            'Those eyes 😍',
-            'My everything 🌟',
-            'Gorgeous 💖',
-            'Love of my life 💝',
-            'My heart 💗',
-            'Simply beautiful 🌸',
-            'My love 💔'
-        ];
+        function loadPhoto(event, containerId) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const container = document.getElementById(containerId);
+                    container.innerHTML = `<img src="${e.target.result}" alt="Photo" class="photo">`;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
 
         // Card Navigation
         let currentCard = 0;
@@ -1062,7 +1067,7 @@
         // Event Listeners
         cards.forEach((card, index) => {
             card.addEventListener('click', (e) => {
-                if (e.target.closest('.btn') || e.target.closest('.photo-item')) return;
+                if (e.target.closest('.btn') || e.target.closest('.photo-placeholder') || e.target.closest('.photo-item')) return;
                 if (!isAnimating && index !== currentCard) {
                     goToCard(index);
                 }
@@ -1201,18 +1206,46 @@
             }, 200);
         }
 
-        // Load Photos in Card 4
+        // Initialize photos grid with placeholders
         const photosGrid = document.getElementById('photosGrid');
-        photoFiles.forEach((file, index) => {
+        for (let i = 0; i < 8; i++) {
             const photoItem = document.createElement('div');
             photoItem.className = 'photo-item';
-            photoItem.innerHTML = `<img src="C:/Users/yusuf/Downloads/love/${file}" alt="Photo ${index + 1}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%%22 height=%22100%%22><rect fill=%22%23722f37%22 width=%22100%%22 height=%22100%%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2220%22 fill=%22%23d4af37%22>💕</text></svg>'">`;
+            photoItem.innerHTML = `
+                <div class="placeholder" onclick="triggerFileSelect('photo${i}')">
+                    <div class="placeholder-icon">📷</div>
+                    <div class="placeholder-text">Click to add</div>
+                </div>
+                <input type="file" id="photo${i}" accept="image/*" style="display: none;" onchange="loadGridPhoto(event, this)">
+            `;
+            
+            // Click to view larger
             photoItem.addEventListener('click', () => {
-                document.getElementById('modalImage').src = `C:/Users/yusuf/Downloads/love/${file}`;
-                document.getElementById('photoModal').classList.add('active');
+                const img = photoItem.querySelector('img');
+                if (img && img.src && img.src !== window.location.href) {
+                    document.getElementById('modalImage').src = img.src;
+                    document.getElementById('photoModal').classList.add('active');
+                }
             });
+            
             photosGrid.appendChild(photoItem);
-        });
+        }
+
+        function loadGridPhoto(event, input) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const photoItem = input.parentElement;
+                    photoItem.innerHTML = `<img src="${e.target.result}" alt="Photo">`;
+                    photoItem.onclick = () => {
+                        document.getElementById('modalImage').src = e.target.result;
+                        document.getElementById('photoModal').classList.add('active');
+                    };
+                };
+                reader.readAsDataURL(file);
+            }
+        }
 
         // Photo Modal
         document.getElementById('photoModalClose').addEventListener('click', () => {
@@ -1273,10 +1306,10 @@
             updateCardPositions();
         });
 
-        // Parall move for activeax on mouse card photos
+        // Parallax effect on card 4 photos
         document.addEventListener('mousemove', (e) => {
             if (currentCard === 3) {
-                const photos = document.querySelectorAll('.photo-item');
+                const photos = document.querySelectorAll('.photo-item img');
                 photos.forEach(photo => {
                     const rect = photo.getBoundingClientRect();
                     const x = (e.clientX - rect.left) / rect.width - 0.5;
