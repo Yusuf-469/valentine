@@ -250,10 +250,6 @@
             height: 55%;
             overflow: hidden;
             position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, var(--burgundy), #1a1a1a);
         }
 
         .photo {
@@ -263,44 +259,12 @@
             transition: transform 8s ease;
         }
 
-        .card:hover .photo {
-            transform: scale(1.1);
+        .playing-card.active .photo {
+            transform: scale(1.05);
         }
 
-        /* Placeholder for missing photos */
-        .photo-placeholder {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--burgundy), #8b3a42);
-            color: var(--gold);
-            text-align: center;
-            padding: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .photo-placeholder:hover {
-            background: linear-gradient(135deg, #8b3a42, var(--burgundy));
-        }
-
-        .photo-placeholder .icon {
-            font-size: 4rem;
-            margin-bottom: 15px;
-        }
-
-        .photo-placeholder .text {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.2rem;
-        }
-
-        .photo-placeholder .subtext {
-            font-size: 0.9rem;
-            opacity: 0.7;
-            margin-top: 10px;
+        .playing-card.active:hover .photo {
+            transform: scale(1.15);
         }
 
         /* Text Overlay */
@@ -419,11 +383,6 @@
             75% { transform: translateX(3px) rotate(10deg); }
         }
 
-        .creature.reaction-hurt {
-            transform: scale(0.8);
-            filter: grayscale(0.5);
-        }
-
         .creature.reaction-happy {
             animation: happyJump 0.5s ease !important;
         }
@@ -517,10 +476,6 @@
             cursor: pointer;
             position: relative;
             border: 2px solid var(--gold);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, var(--burgundy), #1a1a1a);
         }
 
         .photo-item img {
@@ -532,27 +487,6 @@
 
         .photo-item:hover img {
             transform: scale(1.1);
-        }
-
-        .photo-item .placeholder {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: var(--gold);
-            text-align: center;
-            padding: 10px;
-            width: 100%;
-            height: 100%;
-        }
-
-        .photo-item .placeholder-icon {
-            font-size: 2rem;
-            margin-bottom: 5px;
-        }
-
-        .photo-item .placeholder-text {
-            font-size: 0.7rem;
         }
 
         /* Navigation */
@@ -792,52 +726,6 @@
                 right: 10px;
             }
         }
-
-        /* Photo Modal */
-        .photo-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.95);
-            z-index: 800;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .photo-modal.active {
-            display: flex;
-        }
-
-        .photo-modal img {
-            max-width: 90%;
-            max-height: 90%;
-            object-fit: contain;
-            border: 3px solid var(--gold);
-            box-shadow: 0 0 50px rgba(212, 175, 55, 0.3);
-        }
-
-        .photo-modal-close {
-            position: absolute;
-            top: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            border: 2px solid var(--gold);
-            border-radius: 50%;
-            background: transparent;
-            color: var(--gold);
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .photo-modal-close:hover {
-            background: rgba(212, 175, 55, 0.2);
-        }
     </style>
 </head>
 <body>
@@ -874,14 +762,9 @@
             <div class="card-inner">
                 <div class="card-face card-back"></div>
                 <div class="card-face card-front">
-                    <div class="photo-container" id="photoContainer1">
-                        <div class="photo-placeholder" onclick="triggerFileSelect('file1')">
-                            <div class="icon">📷</div>
-                            <div class="text">Your Photo Here</div>
-                            <div class="subtext">Click to select</div>
-                        </div>
+                    <div class="photo-container">
+                        <img src="file:///C:/Users/yusuf/Downloads/love/WhatsApp%20Image%202026-02-07%20at%205.52.11%20PM.jpeg" alt="Advika" class="photo">
                     </div>
-                    <input type="file" id="file1" accept="image/*" style="display: none;" onchange="loadPhoto(event, 'photoContainer1')">
                     <div class="text-overlay">
                         <p class="main-text">
                             "I love your eyes, your piercings, your hair, your 'poopy' brown eyes (jokes aside) — 
@@ -897,14 +780,9 @@
             <div class="card-inner">
                 <div class="card-face card-back"></div>
                 <div class="card-face card-front">
-                    <div class="photo-container" id="photoContainer2">
-                        <div class="photo-placeholder" onclick="triggerFileSelect('file2')">
-                            <div class="icon">📷</div>
-                            <div class="text">Your Photo Here</div>
-                            <div class="subtext">Click to select</div>
-                        </div>
+                    <div class="photo-container">
+                        <img src="file:///C:/Users/yusuf/Downloads/love/WhatsApp%20Image%202026-02-07%20at%205.52.49%20PM%20(1).jpeg" alt="Advika" class="photo">
                     </div>
-                    <input type="file" id="file2" accept="image/*" style="display: none;" onchange="loadPhoto(event, 'photoContainer2')">
                     <div class="text-overlay">
                         <p class="main-text">
                             "I would love to kiss you, anytime and everytime I get the chance.<br><br>
@@ -952,8 +830,13 @@
                             </p>
                             <p class="signature">yours, yusuf<br>and only yours ❤️</p>
                         </div>
-                        <div class="photos-grid" id="photosGrid">
-                            <!-- Photos will be added here -->
+                        <div class="photos-grid">
+                            <div class="photo-item"><img src="file:///C:/Users/yusuf/Downloads/love/WhatsApp%20Image%202026-02-07%20at%205.52.49%20PM.jpeg" alt="Photo"></div>
+                            <div class="photo-item"><img src="file:///C:/Users/yusuf/Downloads/love/WhatsApp%20Image%202026-02-07%20at%205.52.50%20PM.jpeg" alt="Photo"></div>
+                            <div class="photo-item"><img src="file:///C:/Users/yusuf/Downloads/love/WhatsApp%20Image%202026-02-07%20at%205.52.10%20PM.jpeg" alt="Photo"></div>
+                            <div class="photo-item"><img src="file:///C:/Users/yusuf/Downloads/love/WhatsApp%20Image%202026-02-07%20at%205.52.11%20PM%20(1).jpeg" alt="Photo"></div>
+                            <div class="photo-item"><img src="file:///C:/Users/yusuf/Downloads/love/WhatsApp%20Image%202026-02-07%20at%205.52.11%20PM%20(2).jpeg" alt="Photo"></div>
+                            <div class="photo-item"><img src="file:///C:/Users/yusuf/Downloads/love/WhatsApp%20Image%202026-02-07%20at%205.52.11%20PM%20(3).jpeg" alt="Photo"></div>
                         </div>
                     </div>
                 </div>
@@ -982,30 +865,7 @@
         <p style="color: var(--cream); font-size: 1.5rem; margin-top: 20px;">You made me the happiest! ❤️</p>
     </div>
 
-    <!-- Photo Modal -->
-    <div class="photo-modal" id="photoModal">
-        <button class="photo-modal-close" id="photoModalClose">×</button>
-        <img id="modalImage" src="" alt="Photo">
-    </div>
-
     <script>
-        // Photo upload functionality
-        function triggerFileSelect(fileId) {
-            document.getElementById(fileId).click();
-        }
-
-        function loadPhoto(event, containerId) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const container = document.getElementById(containerId);
-                    container.innerHTML = `<img src="${e.target.result}" alt="Photo" class="photo">`;
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-
         // Card Navigation
         let currentCard = 0;
         const cards = document.querySelectorAll('.playing-card');
@@ -1067,7 +927,7 @@
         // Event Listeners
         cards.forEach((card, index) => {
             card.addEventListener('click', (e) => {
-                if (e.target.closest('.btn') || e.target.closest('.photo-placeholder') || e.target.closest('.photo-item')) return;
+                if (e.target.closest('.btn')) return;
                 if (!isAnimating && index !== currentCard) {
                     goToCard(index);
                 }
@@ -1206,58 +1066,6 @@
             }, 200);
         }
 
-        // Initialize photos grid with placeholders
-        const photosGrid = document.getElementById('photosGrid');
-        for (let i = 0; i < 8; i++) {
-            const photoItem = document.createElement('div');
-            photoItem.className = 'photo-item';
-            photoItem.innerHTML = `
-                <div class="placeholder" onclick="triggerFileSelect('photo${i}')">
-                    <div class="placeholder-icon">📷</div>
-                    <div class="placeholder-text">Click to add</div>
-                </div>
-                <input type="file" id="photo${i}" accept="image/*" style="display: none;" onchange="loadGridPhoto(event, this)">
-            `;
-            
-            // Click to view larger
-            photoItem.addEventListener('click', () => {
-                const img = photoItem.querySelector('img');
-                if (img && img.src && img.src !== window.location.href) {
-                    document.getElementById('modalImage').src = img.src;
-                    document.getElementById('photoModal').classList.add('active');
-                }
-            });
-            
-            photosGrid.appendChild(photoItem);
-        }
-
-        function loadGridPhoto(event, input) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const photoItem = input.parentElement;
-                    photoItem.innerHTML = `<img src="${e.target.result}" alt="Photo">`;
-                    photoItem.onclick = () => {
-                        document.getElementById('modalImage').src = e.target.result;
-                        document.getElementById('photoModal').classList.add('active');
-                    };
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-
-        // Photo Modal
-        document.getElementById('photoModalClose').addEventListener('click', () => {
-            document.getElementById('photoModal').classList.remove('active');
-        });
-
-        document.getElementById('photoModal').addEventListener('click', (e) => {
-            if (e.target.id === 'photoModal') {
-                document.getElementById('photoModal').classList.remove('active');
-            }
-        });
-
         // Progress dots
         document.querySelectorAll('.progress-dot').forEach(dot => {
             dot.addEventListener('click', () => {
@@ -1304,19 +1112,6 @@
             }, 2500);
 
             updateCardPositions();
-        });
-
-        // Parallax effect on card 4 photos
-        document.addEventListener('mousemove', (e) => {
-            if (currentCard === 3) {
-                const photos = document.querySelectorAll('.photo-item img');
-                photos.forEach(photo => {
-                    const rect = photo.getBoundingClientRect();
-                    const x = (e.clientX - rect.left) / rect.width - 0.5;
-                    const y = (e.clientY - rect.top) / rect.height - 0.5;
-                    photo.style.transform = `perspective(500px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg)`;
-                });
-            }
         });
     </script>
 </body>
