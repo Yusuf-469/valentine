@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Advika 💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #ffecd2 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            overflow-x: hidden;
+        }
+
+        h1 {
+            color: #e91e63;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .cards-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        /* First Card: I Love You */
+        .card-love {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            height: 300px;
+            border-radius: 30px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 20px 60px rgba(233, 30, 99, 0.3);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .card-love .heart-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 50%, #ff9ff3 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-love .heart-bg::before {
+            content: '❤️';
+            font-size: 8rem;
+            animation: heartbeat 1s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .card-love .overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(transparent 40%, rgba(233, 30, 99, 0.9) 100%);
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 30px;
+        }
+
+        .card-love .text {
+            color: #fff;
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 2px 2px 4px rgba(0,0,0,0.3), 0 0 10px rgba(255,255,255,0.5); }
+            to { text-shadow: 2px 2px 4px rgba(0,0,0,0.3), 0 0 20px rgba(255,255,255,0.8), 0 0 30px rgba(255,105,180,0.6); }
+        }
+
+        .card-love .floating-hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .card-love .floating-hearts span {
+            position: absolute;
+            color: rgba(255,255,255,0.6);
+            font-size: 1.5rem;
+            animation: floatHeart 4s linear infinite;
+        }
+
+        @keyframes floatHeart {
+            0% { transform: translateY(100%) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100%) rotate(360deg); opacity: 0; }
+        }
+
+        /* Second Card: Valentine Question */
+        .card-question {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            min-height: 450px;
+            border-radius: 30px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #fff0f5 0%, #ffe4ec 100%);
+            box-shadow: 0 20px 60px rgba(233, 30, 99, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 30px;
+        }
+
+        .card-question .cute-creature {
+            font-size: 6rem;
+            margin-bottom: 20px;
+            animation: bounce 1s ease-in-out infinite;
+            transition: all 0.3s ease;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .card-question .question-text {
+            color: #e91e63;
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .card-question .buttons-container {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .card-question .btn {
+            padding: 15px 50px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .card-question .btn-yes {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: #fff;
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+        }
+
+        .card-question .btn-yes:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 35px rgba(255, 107, 107, 0.5);
+        }
+
+        .card-question .btn-no {
+            background: linear-gradient(135deg, #bdc3c7, #95a5a6);
+            color: #fff;
+            box-shadow: 0 8px 25px rgba(189, 195, 199, 0.4);
+        }
+
+        .card-question .btn-no:hover {
+            background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+        }
+
+        /* Watery eyes effect */
+        .creature-watery .cute-creature::after {
+            content: '💧💧';
+            position: absolute;
+            font-size: 1rem;
+            animation: tears 1s ease-in-out infinite;
+        }
+
+        @keyframes tears {
+            0%, 100% { opacity: 0; transform: translateY(0); }
+            50% { opacity: 1; transform: translateY(5px); }
+        }
+
+        /* Third Card: Hydrangeas Bouquet */
+        .card-hydrangea {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            height: 400px;
+            border-radius: 30px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 50%, #a5d6a7 100%);
+            box-shadow: 0 20px 60px rgba(76, 175, 80, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+        }
+
+        .card-hydrangea .hydrangea-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0.3;
+            background-image: 
+                radial-gradient(circle at 20% 80%, #87ceeb 0%, transparent 30%),
+                radial-gradient(circle at 80% 20%, #98fb98 0%, transparent 30%),
+                radial-gradient(circle at 40% 40%, #dda0dd 0%, transparent 40%),
+                radial-gradient(circle at 60% 60%, #ffb6c1 0%, transparent 35%);
+            animation: hydrangeaSway 4s ease-in-out infinite;
+        }
+
+        @keyframes hydrangeaSway {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.05) rotate(2deg); }
+        }
+
+        .card-hydrangea .content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .card-hydrangea .creature-bouquet {
+            font-size: 5rem;
+            margin-bottom: 15px;
+            animation: presentBounce 2s ease-in-out infinite;
+        }
+
+        @keyframes presentBounce {
+            0%, 100% { transform: translateY(0) rotate(-5deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+
+        .card-hydrangea .bouquet-text {
+            color: #2e7d32;
+            font-size: 1.6rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+        }
+
+        .card-hydrangea .hydrangea-flowers {
+            font-size: 3rem;
+            animation: flowerWave 3s ease-in-out infinite;
+        }
+
+        @keyframes flowerWave {
+            0%, 100% { transform: rotate(-10deg); }
+            50% { transform: rotate(10deg); }
+        }
+
+        .card-hydrangea .btn-accept {
+            margin-top: 20px;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+            transition: all 0.3s ease;
+            animation: pulseAccept 2s ease-in-out infinite;
+        }
+
+        @keyframes pulseAccept {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .card-hydrangea .btn-accept:hover {
+            transform: scale(1.1);
+            box-shadow: 0 12px 35px rgba(255, 107, 107, 0.5);
+        }
+
+        /* Photos Section (Hidden by default) */
+        .card-photos {
+            display: none;
+            width: 100%;
+            max-width: 500px;
+            border-radius: 30px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #fff0f5 0%, #ffe4ec 100%);
+            box-shadow: 0 20px 60px rgba(233, 30, 99, 0.3);
+            padding: 30px;
+            animation: fadeIn 1s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .card-photos.show {
+            display: block;
+        }
+
+        .card-photos .photos-title {
+            color: #e91e63;
+            font-size: 1.5rem;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .card-photos .photos-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .card-photos .photo-frame {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .card-photos .photo-frame::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 3px solid #ff6b6b;
+            border-radius: 15px;
+            opacity: 0.8;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .card-photos .photo-frame::after {
+            content: '💕';
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            font-size: 0.8rem;
+            z-index: 3;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card-photos .photo-frame:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(233, 30, 99, 0.3);
+        }
+
+        .card-photos .photo-frame:hover::after {
+            opacity: 1;
+        }
+
+        .card-photos .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .card-photos .photo-frame:hover img {
+            transform: scale(1.1);
+        }
+
+        .card-photos .photo-frame .frame-decoration {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(233, 30, 99, 0.8));
+            padding: 8px 5px 5px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            z-index: 2;
+        }
+
+        .card-photos .photo-frame:hover .frame-decoration {
+            transform: translateY(0);
+        }
+
+        .card-photos .photo-frame .frame-decoration span {
+            color: #fff;
+            font-size: 0.65rem;
+            text-align: center;
+            display: block;
+        }
+
+        /* Different frame styles */
+        .card-photos .photo-frame.frame-heart::before {
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+        }
+
+        .card-photos .photo-frame.frame-double {
+            border: 4px double #e91e63;
+        }
+
+        .card-photos .photo-frame.frame-dotted {
+            border: 3px dotted #ff6b6b;
+        }
+
+        .card-photos .photo-frame.frame-wavy {
+            border-radius: 20px;
+            border: 3px solid #ff6b6b;
+        }
+
+        /* Fourth Card: Yusuf's Message */
+        .card-message {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            border-radius: 30px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 50%, #ffe082 100%);
+            box-shadow: 0 20px 60px rgba(255, 193, 7, 0.3);
+            padding: 40px 30px;
+        }
+
+        .card-message .message-creature {
+            text-align: center;
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: wiggle 2s ease-in-out infinite;
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        .card-message .message-content {
+            color: #5d4037;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            text-align: center;
+        }
+
+        .card-message .message-content .highlight {
+            color: #e91e63;
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        .card-message .message-content .jokes {
+            font-style: italic;
+            color: #8d6e63;
+        }
+
+        .card-message .signature {
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        .card-message .signature .from-text {
+            color: #e91e63;
+            font-size: 1.5rem;
+            font-weight: bold;
+            animation: signPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes signPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .card-message .signature .only-yours {
+            color: #ff6b6b;
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+
+        /* Success State */
+        .card-success {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #ffecd2 100%);
+            z-index: 1000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            animation: rosyFadeIn 1s ease;
+        }
+
+        @keyframes rosyFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .card-success.show {
+            display: flex;
+        }
+
+        .card-success .success-content {
+            text-align: center;
+            animation: celebrate 1s ease infinite;
+        }
+
+        @keyframes celebrate {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.1) rotate(-5deg); }
+            75% { transform: scale(1.1) rotate(5deg); }
+        }
+
+        .card-success .big-heart {
+            font-size: 10rem;
+            animation: heartbeat 0.5s ease-in-out infinite;
+        }
+
+        .card-success .success-text {
+            font-size: 3rem;
+            color: #e91e63;
+            margin-top: 20px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .card-success .sub-text {
+            font-size: 1.5rem;
+            color: #ff6b6b;
+            margin-top: 10px;
+        }
+
+        .card-success .celebration-hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .card-success .celebration-hearts span {
+            position: absolute;
+            color: #ff6b6b;
+            font-size: 2rem;
+            animation: fallDown 3s linear infinite;
+        }
+
+        @keyframes fallDown {
+            0% { transform: translateY(-100%) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* Responsive */
+        @media (max-width: 500px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .card-love .text {
+                font-size: 1.8rem;
+            }
+            
+            .card-question .question-text {
+                font-size: 1.4rem;
+            }
+            
+            .card-question .btn {
+                padding: 12px 35px;
+                font-size: 1.1rem;
+            }
+
+            .card-message .message-content {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>💕 For My Special Person 💕</h1>
+    
+    <div class="cards-container">
+        <!-- First Card: I Love You -->
+        <div class="card-love" id="cardLove">
+            <div class="heart-bg"></div>
+            <div class="floating-hearts" id="floatingHearts"></div>
+            <div class="overlay">
+                <span class="text">I LOVE YOU ADVIKA ❤️</span>
+            </div>
+        </div>
+
+        <!-- Second Card: Valentine Question -->
+        <div class="card-question" id="cardQuestion">
+            <div class="cute-creature" id="cuteCreature">🥺</div>
+            <p class="question-text" id="questionText">will you be my valentine ?</p>
+            <div class="buttons-container">
+                <button class="btn btn-yes" id="btnYes">Yes</button>
+                <button class="btn btn-no" id="btnNo">No</button>
+            </div>
+        </div>
+
+        <!-- Third Card: Hydrangeas Bouquet -->
+        <div class="card-hydrangea" id="cardHydrangea">
+            <div class="hydrangea-bg"></div>
+            <div class="content">
+                <div class="creature-bouquet">🐻</div>
+                <p class="bouquet-text">for my pretty girl 💐</p>
+                <div class="hydrangea-flowers">
+                    💜💙💚💗🌸
+                </div>
+                <button class="btn-accept" id="btnAccept">Accept Flowers 🌸</button>
+            </div>
+        </div>
+
+        <!-- Photos Card (Shows after accepting flowers) -->
+        <div class="card-photos" id="cardPhotos">
+            <h3 class="photos-title">💕 Our Memories 💕</h3>
+            <div class="photos-grid">
+                <div class="photo-frame frame-heart">
+                    <img src="couple.jpg" alt="Couple Photo 1">
+                    <div class="frame-decoration"><span>💕 Love</span></div>
+                </div>
+                <div class="photo-frame frame-double">
+                    <img src="advika1.jpg" alt="Advika Photo 1">
+                    <div class="frame-decoration"><span>💖 Pretty</span></div>
+                </div>
+                <div class="photo-frame">
+                    <img src="couple2.jpg" alt="Couple Photo 2">
+                    <div class="frame-decoration"><span>💗 Sweet</span></div>
+                </div>
+                <div class="photo-frame frame-wavy">
+                    <img src="advika2.jpg" alt="Advika Photo 2">
+                    <div class="frame-decoration"><span>💝 Beautiful</span></div>
+                </div>
+                <div class="photo-frame frame-dotted">
+                    <img src="couple3.jpg" alt="Couple Photo 3">
+                    <div class="frame-decoration"><span>💞 Together</span></div>
+                </div>
+                <div class="photo-frame frame-heart">
+                    <img src="advika3.jpg" alt="Advika Photo 3">
+                    <div class="frame-decoration"><span>💓 Gorgeous</span></div>
+                </div>
+                <div class="photo-frame">
+                    <img src="couple4.jpg" alt="Couple Photo 4">
+                    <div class="frame-decoration"><span>💘 Forever</span></div>
+                </div>
+                <div class="photo-frame frame-double">
+                    <img src="advika4.jpg" alt="Advika Photo 4">
+                    <div class="frame-decoration"><span>💋 Amazing</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fourth Card: Yusuf's Message -->
+        <div class="card-message" id="cardMessage">
+            <div class="message-creature">💕</div>
+            <div class="message-content">
+                <p>
+                    i love your eyes, your piercings, your hair, 
+                    <span class="highlight">your "poopy" brown eyes</span>
+                </p>
+                <p class="jokes" style="margin: 10px 0;">(jokes aside)</p>
+                <p>
+                    i love those eyes<br>
+                    i love to look at them<br>
+                    and your face<br>
+                    i would love to kiss you<br>
+                    <span class="highlight">anytime and everytime</span><br>
+                    i get the chance
+                </p>
+                <p style="margin-top: 15px;">
+                    i loveeeeee youuuuuuu 💕
+                </p>
+                <p>
+                    and i want to keep loving you
+                </p>
+            </div>
+            <div class="signature">
+                <p class="from-text">yours yusuf</p>
+                <p class="only-yours">and only yours ❤️</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Overlay -->
+    <div class="card-success" id="cardSuccess">
+        <div class="celebration-hearts" id="celebrationHearts"></div>
+        <div class="success-content">
+            <div class="big-heart">💕</div>
+            <p class="success-text">YAYYYY! ❤️</p>
+            <p class="sub-text">You made me the happiest!</p>
+        </div>
+    </div>
+
+    <script>
+        // Create floating hearts for first card
+        const floatingHeartsContainer = document.getElementById('floatingHearts');
+        const heartEmojis = ['❤️', '💕', '💗', '💖', '💓', '💘', '💝'];
+
+        function createFloatingHeart() {
+            const span = document.createElement('span');
+            span.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+            span.style.left = Math.random() * 100 + '%';
+            span.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            span.style.animationDelay = Math.random() * 2 + 's';
+            floatingHeartsContainer.appendChild(span);
+
+            setTimeout(() => span.remove(), 5000);
+        }
+
+        setInterval(createFloatingHeart, 800);
+
+        // Valentine Question Logic
+        const btnYes = document.getElementById('btnYes');
+        const btnNo = document.getElementById('btnNo');
+        const questionText = document.getElementById('questionText');
+        const cuteCreature = document.getElementById('cuteCreature');
+        const cardQuestion = document.getElementById('cardQuestion');
+        const cardSuccess = document.getElementById('cardSuccess');
+        const celebrationHearts = document.getElementById('celebrationHearts');
+        const cardHydrangea = document.getElementById('cardHydrangea');
+        const btnAccept = document.getElementById('btnAccept');
+        const cardPhotos = document.getElementById('cardPhotos');
+
+        let noClickCount = 0;
+        let yesScale = 1;
+        let fontIndex = 0;
+
+        const noMessages = [
+            "please say yes 🥺",
+            "don't break my heart 💔",
+            "just say yes pretty please 🙏",
+            "I promise I'll be good 😢",
+            "one chance is all I ask 🥺💕",
+            "pretty please with cherry on top 🍒",
+            "my heart is waiting 💝",
+            "don't say no again 😞",
+            "you're my favorite person ❤️",
+            "say yes and make my day 🌟"
+        ];
+
+        const cuteFonts = [
+            "'Comic Sans MS', cursive",
+            "'Brush Script MT', cursive",
+            "'Lucida Handwriting', cursive",
+            "'Segoe Script', cursive",
+            "'Bradley Hand', cursive",
+            "'Snell Roundhand', cursive",
+            "'URW Chancery L', cursive",
+            "cursive"
+        ];
+
+        const creatureStates = ['🥺', '😢', '😭', '🥺💔', '😿', '🥺👉👈', '💔🥺', '😔🥺'];
+
+        btnYes.addEventListener('click', () => {
+            // Show success celebration
+            cardSuccess.classList.add('show');
+            
+            // Create celebration hearts
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const span = document.createElement('span');
+                    span.textContent = '❤️';
+                    span.style.left = Math.random() * 100 + '%';
+                    span.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                    celebrationHearts.appendChild(span);
+                }, i * 100);
+            }
+
+            // Confetti effect
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const span = document.createElement('span');
+                    span.textContent = ['💕', '💗', '💖', '🌸', '🎀'][Math.floor(Math.random() * 5)];
+                    span.style.left = Math.random() * 100 + '%';
+                    span.style.animationDuration = (Math.random() * 1 + 1) + 's';
+                    celebrationHearts.appendChild(span);
+                }, i * 80);
+            }
+        });
+
+        btnNo.addEventListener('click', () => {
+            noClickCount++;
+            
+            // Increase Yes button size
+            yesScale += 0.3;
+            btnYes.style.transform = `scale(${yesScale})`;
+            btnYes.style.padding = `${15 + yesScale * 5}px ${50 + yesScale * 10}px`;
+            
+            // Move No button to random position
+            const containerRect = cardQuestion.getBoundingClientRect();
+            const btnRect = btnNo.getBoundingClientRect();
+            
+            const maxX = containerRect.width - btnRect.width - 40;
+            const maxY = containerRect.height - btnRect.height - 40;
+            
+            const randomX = Math.max(10, Math.random() * maxX - 10);
+            const randomY = Math.max(10, Math.random() * maxY - 10);
+            
+            btnNo.style.position = 'absolute';
+            btnNo.style.left = randomX + 'px';
+            btnNo.style.top = randomY + 'px';
+            
+            // Change text message
+            if (noClickCount < noMessages.length) {
+                questionText.textContent = noMessages[noClickCount - 1];
+            } else {
+                questionText.textContent = "I won't give up! 💕";
+            }
+            
+            // Change creature to watery eyes/sad
+            cuteCreature.textContent = creatureStates[noClickCount % creatureStates.length];
+            
+            // Change font progressively
+            fontIndex = Math.min(fontIndex + 1, cuteFonts.length - 1);
+            questionText.style.fontFamily = cuteFonts[fontIndex];
+            
+            // Add shake effect to No button
+            btnNo.style.animation = 'none';
+            setTimeout(() => {
+                btnNo.style.animation = 'shake 0.5s ease';
+            }, 10);
+        });
+
+        // Hydrangeas Accept Button
+        btnAccept.addEventListener('click', () => {
+            // Show photos card with animation
+            cardPhotos.classList.add('show');
+            
+            // Celebration for accepting flowers
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const span = document.createElement('span');
+                    span.textContent = ['💐', '🌸', '💗', '💖', '🌺'][Math.floor(Math.random() * 5)];
+                    span.style.position = 'fixed';
+                    span.style.left = Math.random() * 100 + '%';
+                    span.style.top = '-50px';
+                    span.style.fontSize = (Math.random() * 1.5 + 1) + 'rem';
+                    span.style.animation = `fallDown ${Math.random() * 2 + 2}s linear`;
+                    document.body.appendChild(span);
+                    
+                    setTimeout(() => span.remove(), 4000);
+                }, i * 100);
+            }
+
+            // Scroll to photos
+            setTimeout(() => {
+                cardPhotos.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 500);
+        });
+
+        // Add shake keyframes dynamically
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                25% { transform: translateX(-10px); }
+                75% { transform: translateX(10px); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Make Yes button follow mouse slightly when No is clicked multiple times
+        let yesFollowsMouse = false;
+        
+        if (noClickCount >= 3) {
+            yesFollowsMouse = true;
+        }
+
+        document.addEventListener('mousemove', (e) => {
+            if (yesFollowsMouse && !cardSuccess.classList.contains('show')) {
+                const containerRect = cardQuestion.getBoundingClientRect();
+                const btnRect = btnYes.getBoundingClientRect();
+                
+                let x = e.clientX - containerRect.left - btnRect.width / 2;
+                let y = e.clientY - containerRect.top - btnRect.height / 2;
+                
+                // Keep within bounds
+                x = Math.max(10, Math.min(x, containerRect.width - btnRect.width - 10));
+                y = Math.max(10, Math.min(y, containerRect.height - btnRect.height - 10));
+                
+                btnYes.style.position = 'absolute';
+                btnYes.style.left = x + 'px';
+                btnYes.style.top = y + 'px';
+            }
+        });
+
+        // Add hover effect for photo frames
+        document.querySelectorAll('.photo-frame').forEach(frame => {
+            frame.addEventListener('mouseenter', () => {
+                frame.style.zIndex = '10';
+            });
+            frame.addEventListener('mouseleave', () => {
+                frame.style.zIndex = '1';
+            });
+        });
+    </script>
+</body>
+</html>
