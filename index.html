@@ -345,18 +345,19 @@
 
         .creature-bubble {
             position: absolute;
-            top: -30px;
+            top: -40px;
             left: 50%;
             transform: translateX(-50%);
             background: var(--cream);
-            padding: 5px 12px;
-            border-radius: 15px;
-            font-size: 0.8rem;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
             color: var(--burgundy);
             white-space: nowrap;
             opacity: 0;
             transition: opacity 0.3s ease;
-            border: 1px solid var(--gold);
+            border: 2px solid var(--gold);
+            font-weight: bold;
         }
 
         .creature-container:hover .creature-bubble {
@@ -805,7 +806,7 @@
                         </p>
                         <div class="creature-container" id="creatureContainer">
                             <span class="creature bouquet-holding" id="creature">🥺</span>
-                            <div class="creature-bubble">Click me!</div>
+                            <div class="creature-bubble" id="creatureBubble">will u be my valentine? 💕</div>
                         </div>
                         <div class="yesno-buttons">
                             <button class="btn btn-yes" id="btnYes">Yes 💕</button>
@@ -964,12 +965,23 @@
         const btnYes = document.getElementById('btnYes');
         const btnNo = document.getElementById('btnNo');
 
-        const creatureReactions = ['🥰', '🥺', '😊', '😘', '😍', '🤗'];
-        let reactionIndex = 0;
+        // Creature bubble messages
+        const bubbleMessages = [
+            'will u be my valentine? 💕',
+            'youre so cute 🥰',
+            'my heart beats for you 💗',
+            'be mine? 😘',
+            'i love youuu 💖',
+            'say yes pleasseee 🌸'
+        ];
+        let bubbleIndex = 0;
+        const creatureBubble = document.getElementById('creatureBubble');
 
         creatureContainer.addEventListener('click', () => {
             reactionIndex = (reactionIndex + 1) % creatureReactions.length;
+            bubbleIndex = (bubbleIndex + 1) % bubbleMessages.length;
             creature.textContent = creatureReactions[reactionIndex];
+            creatureBubble.textContent = bubbleMessages[bubbleIndex];
             creature.classList.add('reaction-happy');
             setTimeout(() => creature.classList.remove('reaction-happy'), 500);
         });
@@ -1001,21 +1013,43 @@
             }, 3000);
         });
 
+        // No button messages with cute fonts
+        const noMessages = [
+            { text: 'try again 💕', font: "'Comic Sans MS', cursive" },
+            { text: 'love pls say yes 🥺', font: "'Brush Script MT', cursive" },
+            { text: 'pretty please 🙏', font: "'Lucida Handwriting', cursive" },
+            { text: 'my heart is sad 😢', font: "'Segoe Script', cursive" },
+            { text: 'just say yes 💝', font: "'Bradley Hand', cursive" },
+            { text: 'i love youuuu 💗', font: "'Snell Roundhand', cursive" },
+            { text: 'say yesss pleasseee 🌸', font: "'URW Chancery L', cursive" },
+            { text: 'okay okay okay 💖', font: "'Kristen ITC', cursive" }
+        ];
+
         btnNo.addEventListener('click', () => {
             noClickCount++;
+            
+            // Update No button text with cute message and font
+            if (noClickCount <= noMessages.length) {
+                const msg = noMessages[noClickCount - 1];
+                btnNo.textContent = msg.text;
+                btnNo.style.fontFamily = msg.font;
+            } else {
+                btnNo.textContent = '💕 I love you 💕';
+                btnNo.style.fontFamily = "'Cormorant Garamond', serif";
+            }
             
             // Creature sad reaction
             creature.textContent = '😢';
             creature.classList.add('reaction-watery');
             
-            // Move Yes button randomly
-            const container = btnYes.parentElement;
-            const maxX = container.offsetWidth - btnYes.offsetWidth - 40;
-            const maxY = container.offsetHeight - btnYes.offsetHeight - 20;
+            // Move No button randomly (it runs away!)
+            const container = btnNo.parentElement;
+            const maxX = container.offsetWidth - btnNo.offsetWidth - 40;
+            const maxY = container.offsetHeight - btnNo.offsetHeight - 20;
             
-            btnYes.style.position = 'absolute';
-            btnYes.style.left = Math.random() * maxX + 'px';
-            btnYes.style.top = Math.random() * maxY + 'px';
+            btnNo.style.position = 'absolute';
+            btnNo.style.left = Math.random() * maxX + 'px';
+            btnNo.style.top = Math.random() * maxY + 'px';
             
             setTimeout(() => {
                 creature.classList.remove('reaction-watery');
